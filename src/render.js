@@ -5,17 +5,17 @@ function renderProjects () {
     const projects = Projects();
 
     projects.addProject("Groceries");
+    projects.addProject("Shop Projects");
 
     const sidebar = document.querySelector("#sidebar");
 
     const projectList = projects.getProjects()
 
-    projectList.forEach(element => {
-        console.log(Object.entries(element).toString());
+    for (const [key] of Object.entries(projectList)) {
         const projLI = document.createElement("li");
-        projLI.textContent = Object.entries(element);
+        projLI.textContent = key;
         sidebar.appendChild(projLI);
-    });
+    }
 
 }
 

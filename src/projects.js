@@ -1,8 +1,9 @@
 function Projects () {
-    const projectList = [{"My List": []}];
+    const projectList = {"My List" : []};
 
     const addProject = (project) => {
-        projectList.push({[project]:[]});
+        projectList[project] = [];
+        //projectList.push({[project]:[]});
         console.log(projectList);
     }
 
@@ -16,8 +17,9 @@ function Projects () {
         console.log(projectList);
     }
 
-    const delProject = (index) => {
-        projectList.splice(index, 1)
+    const delProject = (project) => {
+        delete projectList[project];
+        //projectList.splice(index, 1)
         console.log(projectList);
     }
 
