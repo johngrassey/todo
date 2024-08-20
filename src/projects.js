@@ -2,7 +2,7 @@ function Projects () {
     const projectList = [];
 
     const addProject = (project) => {
-        projectList.push(project);
+        projectList.push({[project]:[]});
         console.log(projectList);
     }
 
