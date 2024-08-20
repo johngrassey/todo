@@ -1,22 +1,33 @@
 import { Projects } from "./projects";
 
-function renderProjects () {
+function renderSidebar () {
 
     const projects = Projects();
 
-    projects.addProject("Groceries");
-    projects.addProject("Shop Projects");
-
-    const sidebar = document.querySelector("#sidebar");
+    const sidebar = document.querySelector(".projects");
 
     const projectList = projects.getProjects()
 
-    for (const [key] of Object.entries(projectList)) {
-        const projLI = document.createElement("li");
-        projLI.textContent = key;
-        sidebar.appendChild(projLI);
+    function createProjList () {
+        sidebar.textContent = "";
+        for (const [key] of Object.entries(projectList)) {
+            const projLI = document.createElement("li");
+            projLI.textContent = key;
+            sidebar.appendChild(projLI);
+        }
     }
 
+    function addProjectBtn () {
+        const addProjBtn = document.querySelector(".addproject")
+    
+        addProjBtn.addEventListener("click", () => {
+            projects.addProject(prompt("Next Project"))
+            createProjList();
+        })
+    }
+
+    createProjList();
+    addProjectBtn();
 }
 
-export { renderProjects }
+export { renderSidebar }

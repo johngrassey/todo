@@ -3,23 +3,23 @@ function Projects () {
 
     const addProject = (project) => {
         projectList[project] = [];
-        //projectList.push({[project]:[]});
         console.log(projectList);
     }
 
-    const addProjectTask = (index, project, task) => {
-        projectList[index][project].push(task);
+    const addProjectTask = (project, task) => {
+        projectList[project].push(task);
         console.log(projectList);
     }
 
-    const delProjectTask = (projIndex, project, taskIndex) => {
-        projectList[projIndex][project].splice(taskIndex, 1);
+    const delProjectTask = (project, task) => {
+
+        // NEED TO FIX THIS ONE 
+
         console.log(projectList);
     }
 
     const delProject = (project) => {
         delete projectList[project];
-        //projectList.splice(index, 1)
         console.log(projectList);
     }
 
