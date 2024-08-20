@@ -1,6 +1,7 @@
 import { Projects } from "./projects";
+import { addTask } from "./tasks";
 
-function renderSidebar () {
+function renderProjectList () {
 
     const projects = Projects();
 
@@ -30,4 +31,16 @@ function renderSidebar () {
     addProjectBtn();
 }
 
-export { renderSidebar }
+function renderTaskList () {
+
+    const projects = Projects();
+
+    const taskDiv = document.querySelector("tasks");
+
+    const task = addTask("Get Sprayer", "So I can paint it", "May 20", "Med", "Odds and Ends Notes", "");
+
+    projects.addProjectTask("My List", task);
+    console.log(projects.getProjects())
+}
+
+export { renderProjectList, renderTaskList }

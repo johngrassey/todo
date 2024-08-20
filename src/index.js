@@ -1,6 +1,7 @@
 import "./styles.css";
 import { Projects } from "./projects";
-import { addToDo  } from "./tasks";
-import { renderSidebar } from "./render";
+import { addTask  } from "./tasks";
+import { renderProjectList, renderTaskList } from "./render";
 
-renderSidebar();
+renderProjectList();
+renderTaskList();

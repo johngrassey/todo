@@ -9,10 +9,9 @@ class ToDo {
     }
 }
 
-function addToDo (title, description, dueDate, priority, notes, checklist) {
+function addTask (title, description, dueDate, priority, notes, checklist) {
     const item = new ToDo(title, description, dueDate, priority, notes, checklist)
-    console.log(item);
     return item;
 }
 
-export { addToDo };
+export { addTask };

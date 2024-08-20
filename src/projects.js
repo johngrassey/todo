@@ -3,12 +3,10 @@ function Projects () {
 
     const addProject = (project) => {
         projectList[project] = [];
-        console.log(projectList);
     }
 
     const addProjectTask = (project, task) => {
         projectList[project].push(task);
-        console.log(projectList);
     }
 
     const delProjectTask = (project, task) => {
