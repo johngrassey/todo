@@ -1,5 +1,5 @@
 function Projects () {
-    const projectList = [];
+    const projectList = [{"My List": []}];
 
     const addProject = (project) => {
         projectList.push({[project]:[]});
@@ -21,7 +21,9 @@ function Projects () {
         console.log(projectList);
     }
 
-    return { addProject, addProjectTask, delProjectTask, delProject };
+    const getProjects = () => { return projectList }
+
+    return { addProject, addProjectTask, delProjectTask, delProject, getProjects };
 
 };
 

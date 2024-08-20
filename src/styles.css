@@ -1,3 +1,45 @@
+/*
+HTML RESET
+*/
+
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  input, button, textarea, select {
+    font: inherit;
+  }
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+  #root, #__next {
+    isolation: isolate;
+  }
+
+/*
+MAIN
+*/
+
 body {
-    background-color: darkblue;
+    display: flex;
+}
+
+#sidebar {
+    background-color: #f9f9f9;
+    flex: 1;
+    height: 100vh;
+}
+
+#main {
+    flex: 4;
+    height: 100vh;
 }
