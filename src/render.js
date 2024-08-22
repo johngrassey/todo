@@ -79,6 +79,14 @@ function taskController () {
             const taskDiv = document.createElement("div");
             taskDiv.classList.add("task");
 
+            const checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+            taskDiv.appendChild(checkbox)
+
+            checkbox.addEventListener("click", () => {
+                    console.log("bananas");
+            })
+
             const taskName = document.createElement("div");
             taskName.textContent = task.name;
             taskDiv.appendChild(taskName);
