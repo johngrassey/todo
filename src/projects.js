@@ -1,8 +1,14 @@
 function Projects () {
     const projectList = {"My List" : []};
 
+    let activeProject = "My List";
+
     const addProject = (project) => {
         projectList[project] = [];
+    }
+
+    const setActiveProject = (project) => {
+        activeProject = project;
     }
 
     const addProjectTask = (project, task) => {
@@ -23,7 +29,9 @@ function Projects () {
 
     const getProjects = () => { return projectList }
 
-    return { addProject, addProjectTask, delProjectTask, delProject, getProjects };
+    const getActiveProject = () => { return activeProject }
+
+    return { addProject, addProjectTask, delProjectTask, delProject, getProjects, getActiveProject, setActiveProject };
 
 };
 

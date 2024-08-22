@@ -1,6 +1,6 @@
 class Task {
-    constructor (title, description, dueDate, priority, notes, checklist) {
-        this.title = title;
+    constructor (name, description, dueDate, priority, notes, checklist) {
+        this.name = name;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
@@ -8,8 +8,8 @@ class Task {
     }
 }
 
-function addTask (title, description, dueDate, priority, notes) {
-    const item = new Task(title, description, dueDate, priority, notes)
+function addTask (name, description, dueDate, priority, notes) {
+    const item = new Task(name, description, dueDate, priority, notes)
     return item;
 }
 

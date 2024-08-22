@@ -1,5 +1,7 @@
 import "./styles.css";
-import { renderProjectList, renderTaskList } from "./render";
+import { renderProjectList, taskController } from "./render";
 
 renderProjectList();
-renderTaskList();
+
+const test = taskController();
+test.renderTaskList()
