@@ -1,5 +1,6 @@
 import { Projects } from "./projects";
 import { addTask } from "./tasks";
+import trashImg from "./trash-can.svg"
 
 const projects = Projects();
 
@@ -28,7 +29,9 @@ function renderProjectList () {
         const addProjBtn = document.querySelector(".addproject")
     
         addProjBtn.addEventListener("click", () => {
-            projects.addProject(prompt("Next Project"))
+            const newProj = prompt("Next Project");
+            projects.addProject(newProj);
+            projects.setActiveProject(newProj);
             createProjList();
         })
     }
@@ -67,7 +70,13 @@ function taskController () {
             event.preventDefault();
             projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, duedate.value, priority.value, notes.value));
             dialog.close();
+            renderTaskList();
         });
+     }
+
+     function deleteTask (taskName) {
+        projects.delProjectTask(projects.getActiveProject(), taskName)
+        renderTaskList();
      }
 
      function renderTaskList () {   
@@ -83,8 +92,13 @@ function taskController () {
             checkbox.setAttribute("type", "checkbox");
             taskDiv.appendChild(checkbox)
 
-            checkbox.addEventListener("click", () => {
-                    console.log("bananas");
+            checkbox.addEventListener("click", (event) => {
+                if (event.target.checked) {
+                    taskName.classList.add("done");
+                } else {
+                    taskName.classList.remove("done");
+                }
+                
             })
 
             const taskName = document.createElement("div");
@@ -94,6 +108,15 @@ function taskController () {
             const taskDate = document.createElement("div");
             taskDate.textContent = task.dueDate;
             taskDiv.appendChild(taskDate)
+
+            const trash = document.createElement("img");
+            trash.src = trashImg;
+            trash.classList.add("trash");
+            taskDiv.appendChild(trash);
+
+            trash.addEventListener("click", () => {
+                deleteTask(task.name)
+            })
 
             taskContainer.appendChild(taskDiv);
         }) 

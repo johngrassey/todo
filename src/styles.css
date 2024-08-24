@@ -53,3 +53,11 @@ TASKS
   display: flex;
   justify-content: space-between;
 }
+
+.done {
+  text-decoration: line-through;
+}
+
+.trash {
+  height: 1rem;
+}

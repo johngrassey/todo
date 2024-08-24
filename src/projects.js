@@ -17,9 +17,12 @@ function Projects () {
 
     const delProjectTask = (project, task) => {
 
-        // NEED TO FIX THIS ONE 
-
-        console.log(projectList);
+        for (let i = 0; i < projectList[project].length; i++) {
+            if (projectList[project][i].name === task) {
+                projectList[project].splice(i, 1);
+                break;
+            }
+        }
     }
 
     const delProject = (project) => {
