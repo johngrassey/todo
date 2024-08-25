@@ -8,7 +8,13 @@ function renderProjectList () {
 
     const sidebar = document.querySelector(".projects");
 
-    const projectList = projects.getProjects()
+    const projectList = projects.getProjects();
+
+    
+    function updateActiveProj (key) {
+        projects.setActiveProject(key);
+        createProjList();
+    }
 
     function createProjList () {
 
@@ -16,11 +22,17 @@ function renderProjectList () {
         for (const [key] of Object.entries(projectList)) {
             const projLI = document.createElement("li");
             projLI.textContent = key;
+
+            if (key === projects.getActiveProject()) {
+                projLI.style.color = "blue";
+            }
+
             sidebar.appendChild(projLI);
+            //updateActiveProj(key);
 
             projLI.addEventListener("click", () => {
-                projects.setActiveProject(key);
-                modal.renderTaskList()
+                updateActiveProj(key);
+                modal.renderTaskList();
             })
         }
     }
@@ -98,14 +110,13 @@ function taskController () {
             }
             taskDiv.appendChild(checkbox)
 
-            checkbox.addEventListener("click", (event) => {
+            checkbox.addEventListener("click", () => {
                 projects.updateProjectTask(projects.getActiveProject(), task.name)
                 if (task.done) {
                     taskName.classList.add("done");
                 } else {
                     taskName.classList.remove("done");
                 }
-                
             })
 
             taskName.textContent = task.name;

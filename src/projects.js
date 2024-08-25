@@ -1,24 +1,35 @@
 function Projects () {
-    const projectList = {"My List" : []};
+    //const projectList = {"My List" : []};
+    console.log(JSON.parse(localStorage.getItem("projectList")))
+    const projectList = JSON.parse(localStorage.getItem("projectList"));
 
-    let activeProject = "My List";
+    let activeProject = localStorage.getItem("activeProject");
+
+    function storeData () {
+        localStorage.setItem("projectList", JSON.stringify(projectList));
+    }
 
     const addProject = (project) => {
         projectList[project] = [];
+        console.log(JSON.stringify(projectList))
+        storeData();
     }
 
     const setActiveProject = (project) => {
         activeProject = project;
+        localStorage.setItem("activeProject", activeProject)
     }
 
     const addProjectTask = (project, task) => {
         projectList[project].push(task);
+        storeData();
     }
 
     const updateProjectTask = (project, task) => {
         for (let i = 0; i < projectList[project].length; i++) {
             if (projectList[project][i].name === task) {
                 projectList[project][i].done = !projectList[project][i].done;
+                storeData();
                 break;
             }
         }
@@ -29,6 +40,7 @@ function Projects () {
         for (let i = 0; i < projectList[project].length; i++) {
             if (projectList[project][i].name === task) {
                 projectList[project].splice(i, 1);
+                storeData();
                 break;
             }
         }
