@@ -88,12 +88,19 @@ function taskController () {
             const taskDiv = document.createElement("div");
             taskDiv.classList.add("task");
 
+            const taskName = document.createElement("div");
+
             const checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
+            if (task.done) {
+                taskName.classList.add("done");
+                checkbox.checked = true;
+            }
             taskDiv.appendChild(checkbox)
 
             checkbox.addEventListener("click", (event) => {
-                if (event.target.checked) {
+                projects.updateProjectTask(projects.getActiveProject(), task.name)
+                if (task.done) {
                     taskName.classList.add("done");
                 } else {
                     taskName.classList.remove("done");
@@ -101,7 +108,6 @@ function taskController () {
                 
             })
 
-            const taskName = document.createElement("div");
             taskName.textContent = task.name;
             taskDiv.appendChild(taskName);
 

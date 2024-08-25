@@ -15,6 +15,15 @@ function Projects () {
         projectList[project].push(task);
     }
 
+    const updateProjectTask = (project, task) => {
+        for (let i = 0; i < projectList[project].length; i++) {
+            if (projectList[project][i].name === task) {
+                projectList[project][i].done = !projectList[project][i].done;
+                break;
+            }
+        }
+    }
+
     const delProjectTask = (project, task) => {
 
         for (let i = 0; i < projectList[project].length; i++) {
@@ -34,7 +43,7 @@ function Projects () {
 
     const getActiveProject = () => { return activeProject }
 
-    return { addProject, addProjectTask, delProjectTask, delProject, getProjects, getActiveProject, setActiveProject };
+    return { addProject, addProjectTask, delProjectTask, delProject, getProjects, getActiveProject, setActiveProject, updateProjectTask };
 
 };
 
