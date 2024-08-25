@@ -1,6 +1,7 @@
 import { Projects } from "./projects";
 import { addTask } from "./tasks";
 import trashImg from "./trash-can.svg"
+import {parse, format} from "date-fns"
 
 const projects = Projects();
 
@@ -80,7 +81,7 @@ function taskController () {
     
         form.addEventListener("submit", (event) => {
             event.preventDefault();
-            projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, duedate.value, priority.value, notes.value));
+            projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
             dialog.close();
             renderTaskList();
         });
@@ -123,7 +124,7 @@ function taskController () {
             taskDiv.appendChild(taskName);
 
             const taskDate = document.createElement("div");
-            taskDate.textContent = task.dueDate;
+            taskDate.textContent = format(task.dueDate, "MMM d, yyyy");
             taskDiv.appendChild(taskDate)
 
             const trash = document.createElement("img");
