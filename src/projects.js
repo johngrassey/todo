@@ -1,6 +1,5 @@
 function Projects () {
     //const projectList = {"My List" : []};
-    console.log(JSON.parse(localStorage.getItem("projectList")))
     const projectList = JSON.parse(localStorage.getItem("projectList"));
 
     let activeProject = localStorage.getItem("activeProject");
@@ -11,7 +10,6 @@ function Projects () {
 
     const addProject = (project) => {
         projectList[project] = [];
-        console.log(JSON.stringify(projectList))
         storeData();
     }
 
@@ -25,7 +23,7 @@ function Projects () {
         storeData();
     }
 
-    const updateProjectTask = (project, task) => {
+    const completeTask = (project, task) => {
         for (let i = 0; i < projectList[project].length; i++) {
             if (projectList[project][i].name === task) {
                 projectList[project][i].done = !projectList[project][i].done;
@@ -34,6 +32,20 @@ function Projects () {
             }
         }
     }
+
+    const updateTask = (project, task, name, notes, duedate, priority, description) => {
+        for (let i = 0; i < projectList[project].length; i++) {
+            if (projectList[project][i].name === task) {
+                projectList[project][i].name = name;
+                projectList[project][i].notes = notes;
+                projectList[project][i].dueDate = duedate;
+                projectList[project][i].priority = priority;
+                projectList[project][i].description = description;
+                storeData();
+                break;
+            }
+        }
+    };
 
     const delProjectTask = (project, task) => {
 
@@ -48,14 +60,13 @@ function Projects () {
 
     const delProject = (project) => {
         delete projectList[project];
-        console.log(projectList);
     }
 
     const getProjects = () => { return projectList }
 
     const getActiveProject = () => { return activeProject }
 
-    return { addProject, addProjectTask, delProjectTask, delProject, getProjects, getActiveProject, setActiveProject, updateProjectTask };
+    return { addProject, addProjectTask, delProjectTask, delProject, getProjects, getActiveProject, setActiveProject, completeTask, updateTask };
 
 };
 

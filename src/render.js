@@ -8,6 +8,7 @@ const projects = Projects();
 function renderProjectList () {
 
     const sidebar = document.querySelector(".projects");
+    const projDialog = document.querySelector("dialog.project")
 
     const projectList = projects.getProjects();
 
@@ -29,7 +30,6 @@ function renderProjectList () {
             }
 
             sidebar.appendChild(projLI);
-            //updateActiveProj(key);
 
             projLI.addEventListener("click", () => {
                 updateActiveProj(key);
@@ -62,10 +62,22 @@ function taskController () {
     const duedate = document.querySelector("#duedate");
     const priority = document.querySelector("#priority");
     const notes = document.querySelector("#notes");
-    const form = document.querySelector("form")
+    const form = document.querySelector("form");
+    const submit = document.querySelector("button#submit")
+
+    function clearForm () {
+        name.setAttribute("value", "");
+        description.setAttribute("value", "");
+        duedate.setAttribute("value", "");
+        priority.setAttribute("value", "");
+        notes.setAttribute("value", "");
+    }
 
     function openTaskModal () {
         addTaskBtn.addEventListener("click", () => {
+            clearForm();
+            submit.classList.add("submittask")
+            submit.textContent = "Add Task"
             dialog.showModal();
         })
     };
@@ -78,10 +90,14 @@ function taskController () {
 
      function submitTaskModal () {
 
-    
         form.addEventListener("submit", (event) => {
             event.preventDefault();
-            projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
+            if (event.submitter.className === "updatetask") {
+                console.log(event);
+                projects.updateTask(projects.getActiveProject(), name.value, name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
+            } else {
+                projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
+            }
             dialog.close();
             renderTaskList();
         });
@@ -101,7 +117,7 @@ function taskController () {
             const taskDiv = document.createElement("div");
             taskDiv.classList.add("task");
 
-            const taskName = document.createElement("div");
+
 
             const checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
@@ -112,7 +128,7 @@ function taskController () {
             taskDiv.appendChild(checkbox)
 
             checkbox.addEventListener("click", () => {
-                projects.updateProjectTask(projects.getActiveProject(), task.name)
+                projects.completeTask(projects.getActiveProject(), task.name)
                 if (task.done) {
                     taskName.classList.add("done");
                 } else {
@@ -120,6 +136,7 @@ function taskController () {
                 }
             })
 
+            const taskName = document.createElement("div");
             taskName.textContent = task.name;
             taskDiv.appendChild(taskName);
 
@@ -136,7 +153,20 @@ function taskController () {
                 deleteTask(task.name)
             })
 
-            taskContainer.appendChild(taskDiv);
+
+            taskName.addEventListener("click", () => {
+                clearForm();
+                name.setAttribute("value", task.name);
+                description.setAttribute("value", task.description);
+                duedate.setAttribute("value", format(task.dueDate, "yyyy-MM-dd"));
+                priority.setAttribute("value", task.priority);
+                notes.setAttribute("value", task.notes);
+                submit.classList.add("updatetask")
+                submit.textContent = "Update Task";
+                dialog.showModal();
+            })
+
+            taskContainer.appendChild(taskDiv)
         }) 
     }
 
@@ -147,6 +177,5 @@ const modal = taskController();
 modal.openTaskModal();
 modal.closeTaskModal();
 modal.submitTaskModal();
-//modal.renderTaskList();
 
 export { renderProjectList, taskController }
