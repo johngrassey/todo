@@ -64,9 +64,7 @@ function renderModal () {
 
     function clearModal () {
         form.reset();
-
         const submit = document.querySelector("form > button");
-        console.log(submit)
         form.removeChild(submit);
     }
 
@@ -84,22 +82,26 @@ function renderModal () {
 
     function addSubmitButton (domClass, text, index) {
         const submit = document.createElement("button")
-        submit.classList.add(domClass)
+        submit.classList.add(domClass),
+        submit.setAttribute("id", "b" + index)
         submit.textContent = text;
         form.appendChild(submit);
-
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            if (event.submitter.className === "updatetask") {
-                console.log(event);
-                projects.updateTask(projects.getActiveProject(), index, name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
-            } else {
-                projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
-            }
-            closeModal()
-            renderTaskList();
-        });
     }
+
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (event.submitter.className === "updatetask") {
+        console.log(event)
+        projects.updateTask(projects.getActiveProject(), event.submitter.getAttribute("id").substring(1), name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
+        closeModal()
+        renderTaskList();
+    } else {
+        projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
+        closeModal()
+        renderTaskList();
+    }
+
+});
 
 return { clearModal, closeModal, addSubmitButton, openModal}
 
