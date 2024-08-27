@@ -31,10 +31,14 @@ MAIN
 
 body {
     display: flex;
+    background-color: #f5f5f5;
 }
 
 #sidebar {
-    background-color: #f9f9f9;
+    background-color: white;
+    margin: 10px;
+    border-style: none;
+    border-radius: 10px;
     flex: 1;
     height: 100vh;
 }
@@ -52,6 +56,36 @@ TASKS
 .task {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  height: 48px;
+  padding: 0px 30px;
+  border-radius: 8px
+}
+
+.addtask {
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+  text-align: center;
+  height: 48px;
+  border-style: none;
+  border-radius: 8px;
+  background-color: #cdcdcd;
+}
+
+.tasklist {
+  padding: 50px;
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+.tasklist h2 {
+  margin-bottom: 20px;
 }
 
 .done {
@@ -60,13 +94,4 @@ TASKS
 
 .trash {
   height: 1rem;
-}
-
-.details {
-  display: none;
-}
-
-.details.open {
-  display: flex;
-  justify-content: space-around;
 }

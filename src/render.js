@@ -52,16 +52,9 @@ function renderProjectList () {
 }
 
 function renderModal () {
-    const projects = Projects();
     const dialog = document.querySelector("dialog");
     const form = document.querySelector("form");
     const closeTaskBtn = document.querySelector("#close");
-
-    const name = document.querySelector("#name");
-    const description = document.querySelector("#description");
-    const duedate = document.querySelector("#duedate");
-    const priority = document.querySelector("#priority");
-    const notes = document.querySelector("#notes");
 
     function clearModal () {
         form.reset();
