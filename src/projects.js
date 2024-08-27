@@ -42,15 +42,9 @@ function Projects () {
         storeData();
     };
 
-    const delProjectTask = (project, task) => {
-
-        for (let i = 0; i < projectList[project].length; i++) {
-            if (projectList[project][i].name === task) {
-                projectList[project].splice(i, 1);
+    const delProjectTask = (project, index) => {
+                projectList[project].splice(index, 1);
                 storeData();
-                break;
-            }
-        }
     }
 
     const delProject = (project) => {

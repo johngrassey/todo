@@ -89,19 +89,6 @@ function renderModal () {
         form.appendChild(submit);
     }
 
-    // form.addEventListener("submit", (event) => {
-    //     event.preventDefault();
-    //     if (event.submitter.className === "updatetask") {
-    //         projects.updateTask(projects.getActiveProject(), event.submitter.getAttribute("id").substring(1), name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
-    //         closeModal()
-    //         renderTaskList();
-    //     } else {
-    //         projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
-    //         closeModal()
-    //         renderTaskList();
-    //     }
-    // });
-
 return { clearModal, closeModal, addSubmitButton, openModal }
 
 }
@@ -172,7 +159,7 @@ function renderTaskList () {
         taskDiv.appendChild(trash);
 
         trash.addEventListener("click", () => {
-            projects.delProjectTask(projects.getActiveProject(), task.name)
+            projects.delProjectTask(projects.getActiveProject(), i)
             renderTaskList();
         })
 
