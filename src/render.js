@@ -3,10 +3,10 @@ import { addTask } from "./tasks";
 import trashImg from "./trash-can.svg"
 import {parse, format} from "date-fns"
 
-const projects = Projects();
+
 
 function renderProjectList () {
-
+    const projects = Projects();
     const sidebar = document.querySelector(".projects");
 
     const projectList = projects.getProjects();
@@ -52,6 +52,7 @@ function renderProjectList () {
 }
 
 function renderModal () {
+    const projects = Projects();
     const dialog = document.querySelector("dialog");
     const form = document.querySelector("form");
     const closeTaskBtn = document.querySelector("#close");
@@ -88,27 +89,25 @@ function renderModal () {
         form.appendChild(submit);
     }
 
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    if (event.submitter.className === "updatetask") {
-        console.log(event)
-        projects.updateTask(projects.getActiveProject(), event.submitter.getAttribute("id").substring(1), name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
-        closeModal()
-        renderTaskList();
-    } else {
-        projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
-        closeModal()
-        renderTaskList();
-    }
+    // form.addEventListener("submit", (event) => {
+    //     event.preventDefault();
+    //     if (event.submitter.className === "updatetask") {
+    //         projects.updateTask(projects.getActiveProject(), event.submitter.getAttribute("id").substring(1), name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
+    //         closeModal()
+    //         renderTaskList();
+    //     } else {
+    //         projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
+    //         closeModal()
+    //         renderTaskList();
+    //     }
+    // });
 
-});
-
-return { clearModal, closeModal, addSubmitButton, openModal}
+return { clearModal, closeModal, addSubmitButton, openModal }
 
 }
 
 function renderTaskList () {   
-    const addTaskBtn = document.querySelector(".addtask");
+    const projects = Projects();
     const name = document.querySelector("#name");
     const description = document.querySelector("#description");
     const duedate = document.querySelector("#duedate");
@@ -118,12 +117,6 @@ function renderTaskList () {
     const modal = renderModal();
 
     taskContainer.textContent = "";
-
-    addTaskBtn.addEventListener("click", () => {
-        modal.clearModal();
-        modal.addSubmitButton("submitTask", "Add Task");
-        modal.openModal();
-    })
 
     projects.getProjects()[projects.getActiveProject()].forEach((task, i) => {
         const taskDiv = document.createElement("div");
@@ -187,4 +180,4 @@ function renderTaskList () {
     }) 
 }
 
-export { renderProjectList, renderTaskList }
+export { renderProjectList, renderTaskList, renderModal }
