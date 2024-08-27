@@ -13,6 +13,5 @@ if (!localStorage.getItem("projectList")) {
     renderProjectList();
   }
 
-
 const test = taskController();
 test.renderTaskList()

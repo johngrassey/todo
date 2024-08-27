@@ -8,10 +8,8 @@ const projects = Projects();
 function renderProjectList () {
 
     const sidebar = document.querySelector(".projects");
-    const projDialog = document.querySelector("dialog.project")
 
     const projectList = projects.getProjects();
-
     
     function updateActiveProj (key) {
         projects.setActiveProject(key);
@@ -82,7 +80,7 @@ function renderModal () {
         const submit = document.createElement("button")
         submit.classList.add(domClass)
         submit.textContent = text;
-        form.appendChild(submit)
+        form.appendChild(submit);
     }
 
 return { clearModal, closeModal, addSubmitButton, openModal}
@@ -90,9 +88,6 @@ return { clearModal, closeModal, addSubmitButton, openModal}
 }
 
 function taskController () {
-    //const dialog = document.querySelector("dialog")
-    const addTaskBtn = document.querySelector(".addtask");
-    const closeTaskBtn = document.querySelector("#close");
     const name = document.querySelector("#name");
     const description = document.querySelector("#description");
     const duedate = document.querySelector("#duedate");
@@ -102,53 +97,19 @@ function taskController () {
 
     const modal = renderModal();
 
-    // function clearModal () {
-    //     form.reset();
 
-    //     const submit = document.querySelector("form > button");
-    //     console.log(submit)
-    //     form.removeChild(submit);
-    // }
-
-    // function closeTaskModal () {
-    //     dialog.close();
-    // }
-
-    // function addSubmitButton (domClass, text) {
-    //     const submit = document.createElement("button")
-    //     submit.classList.add(domClass)
-    //     submit.textContent = text;
-    //     form.appendChild(submit)
-    // }
-
-    function openTaskModal () {
-        addTaskBtn.addEventListener("click", () => {
-            modal.clearModal();
-            modal.addSubmitButton("submitTask", "Add Task");
-            modal.openModal();
-            // clearModal();
-            // addSubmitButton("submitTask", "Add Task");
-            // dialog.showModal();
-        })
-    };
-
-    // closeTaskBtn.addEventListener("click", () => {
-    //     closeTaskModal();
-    // })
-
-     function submitTaskModal () {
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            if (event.submitter.className === "updatetask") {
-                console.log(event);
-                projects.updateTask(projects.getActiveProject(), name.value, name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
-            } else {
-                projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
-            }
-            modal.closeModal()
-            renderTaskList();
-        });
-     }
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (event.submitter.className === "updatetask") {
+            console.log(event);
+            projects.updateTask(projects.getActiveProject(), name.value, name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
+        } else {
+            projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
+        }
+        modal.closeModal()
+        renderTaskList();
+    });
+    
 
      function deleteTask (taskName) {
         projects.delProjectTask(projects.getActiveProject(), taskName)
@@ -164,8 +125,7 @@ function taskController () {
             const taskDiv = document.createElement("div");
             taskDiv.classList.add("task");
 
-
-
+            // CHECKBOX
             const checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
             if (task.done) {
@@ -183,14 +143,31 @@ function taskController () {
                 }
             })
 
+            // TASK NAME
             const taskName = document.createElement("div");
             taskName.textContent = task.name;
             taskDiv.appendChild(taskName);
 
+            taskName.addEventListener("click", () => {
+
+                modal.clearModal();
+
+                name.setAttribute("value", task.name);
+                description.setAttribute("value", task.description);
+                duedate.setAttribute("value", format(task.dueDate, "yyyy-MM-dd"));
+                priority.setAttribute("value", task.priority);
+                notes.setAttribute("value", task.notes);
+
+                modal.addSubmitButton("updatetask", "Update Task");
+                modal.openModal();
+            })
+
+            // DUE DATE
             const taskDate = document.createElement("div");
             taskDate.textContent = format(task.dueDate, "MMM d, yyyy");
             taskDiv.appendChild(taskDate)
-
+        
+            // TRASH
             const trash = document.createElement("img");
             trash.src = trashImg;
             trash.classList.add("trash");
@@ -200,26 +177,11 @@ function taskController () {
                 deleteTask(task.name)
             })
 
-            taskName.addEventListener("click", () => {
-                clearModal();
-                name.setAttribute("value", task.name);
-                description.setAttribute("value", task.description);
-                duedate.setAttribute("value", format(task.dueDate, "yyyy-MM-dd"));
-                priority.setAttribute("value", task.priority);
-                notes.setAttribute("value", task.notes);
-                addSubmitButton("updateTask", "Update Task")
-                dialog.showModal();
-            })
-
             taskContainer.appendChild(taskDiv)
         }) 
     }
 
-     return { openTaskModal, submitTaskModal, renderTaskList }
+     return { renderTaskList }
 }
-
-const modal = taskController();
-modal.openTaskModal();
-modal.submitTaskModal();
 
 export { renderProjectList, taskController }
