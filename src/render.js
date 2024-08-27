@@ -31,7 +31,7 @@ function renderProjectList () {
 
             projLI.addEventListener("click", () => {
                 updateActiveProj(key);
-                modal.renderTaskList();
+                renderTaskList();
             })
         }
     }
@@ -55,6 +55,12 @@ function renderModal () {
     const dialog = document.querySelector("dialog");
     const form = document.querySelector("form");
     const closeTaskBtn = document.querySelector("#close");
+
+    const name = document.querySelector("#name");
+    const description = document.querySelector("#description");
+    const duedate = document.querySelector("#duedate");
+    const priority = document.querySelector("#priority");
+    const notes = document.querySelector("#notes");
 
     function clearModal () {
         form.reset();
@@ -81,6 +87,18 @@ function renderModal () {
         submit.classList.add(domClass)
         submit.textContent = text;
         form.appendChild(submit);
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            if (event.submitter.className === "updatetask") {
+                console.log(event);
+                projects.updateTask(projects.getActiveProject(), name.value, name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
+            } else {
+                projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
+            }
+            closeModal()
+            renderTaskList();
+        });
     }
 
 return { clearModal, closeModal, addSubmitButton, openModal}
@@ -97,91 +115,90 @@ function taskController () {
 
     const modal = renderModal();
 
-
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        if (event.submitter.className === "updatetask") {
-            console.log(event);
-            projects.updateTask(projects.getActiveProject(), name.value, name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
-        } else {
-            projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
-        }
-        modal.closeModal()
-        renderTaskList();
-    });
-    
-
      function deleteTask (taskName) {
         projects.delProjectTask(projects.getActiveProject(), taskName)
         renderTaskList();
      }
 
-     function renderTaskList () {   
-        const taskContainer = document.querySelector(".tasks");
-
-        taskContainer.textContent = "";
-
-        projects.getProjects()[projects.getActiveProject()].forEach((task) => {
-            const taskDiv = document.createElement("div");
-            taskDiv.classList.add("task");
-
-            // CHECKBOX
-            const checkbox = document.createElement("input");
-            checkbox.setAttribute("type", "checkbox");
-            if (task.done) {
-                taskName.classList.add("done");
-                checkbox.checked = true;
-            }
-            taskDiv.appendChild(checkbox)
-
-            checkbox.addEventListener("click", () => {
-                projects.completeTask(projects.getActiveProject(), task.name)
-                if (task.done) {
-                    taskName.classList.add("done");
-                } else {
-                    taskName.classList.remove("done");
-                }
-            })
-
-            // TASK NAME
-            const taskName = document.createElement("div");
-            taskName.textContent = task.name;
-            taskDiv.appendChild(taskName);
-
-            taskName.addEventListener("click", () => {
-
-                modal.clearModal();
-
-                name.setAttribute("value", task.name);
-                description.setAttribute("value", task.description);
-                duedate.setAttribute("value", format(task.dueDate, "yyyy-MM-dd"));
-                priority.setAttribute("value", task.priority);
-                notes.setAttribute("value", task.notes);
-
-                modal.addSubmitButton("updatetask", "Update Task");
-                modal.openModal();
-            })
-
-            // DUE DATE
-            const taskDate = document.createElement("div");
-            taskDate.textContent = format(task.dueDate, "MMM d, yyyy");
-            taskDiv.appendChild(taskDate)
-        
-            // TRASH
-            const trash = document.createElement("img");
-            trash.src = trashImg;
-            trash.classList.add("trash");
-            taskDiv.appendChild(trash);
-
-            trash.addEventListener("click", () => {
-                deleteTask(task.name)
-            })
-
-            taskContainer.appendChild(taskDiv)
-        }) 
-    }
-
-     return { renderTaskList }
 }
 
-export { renderProjectList, taskController }
+function renderTaskList () {   
+    const addTaskBtn = document.querySelector(".addtask");
+    const name = document.querySelector("#name");
+    const description = document.querySelector("#description");
+    const duedate = document.querySelector("#duedate");
+    const priority = document.querySelector("#priority");
+    const notes = document.querySelector("#notes");
+    const taskContainer = document.querySelector(".tasks");
+    const modal = renderModal();
+
+    taskContainer.textContent = "";
+
+    addTaskBtn.addEventListener("click", () => {
+        modal.clearModal();
+        modal.addSubmitButton("submitTask", "Add Task");
+        modal.openModal();
+    })
+
+    projects.getProjects()[projects.getActiveProject()].forEach((task) => {
+        const taskDiv = document.createElement("div");
+        taskDiv.classList.add("task");
+
+        // CHECKBOX
+        const checkbox = document.createElement("input");
+        checkbox.setAttribute("type", "checkbox");
+        if (task.done) {
+            taskName.classList.add("done");
+            checkbox.checked = true;
+        }
+        taskDiv.appendChild(checkbox)
+
+        checkbox.addEventListener("click", () => {
+            projects.completeTask(projects.getActiveProject(), task.name)
+            if (task.done) {
+                taskName.classList.add("done");
+            } else {
+                taskName.classList.remove("done");
+            }
+        })
+
+        // TASK NAME
+        const taskName = document.createElement("div");
+        taskName.textContent = task.name;
+        taskDiv.appendChild(taskName);
+
+        taskName.addEventListener("click", () => {
+
+            modal.clearModal();
+
+            name.setAttribute("value", task.name);
+            description.setAttribute("value", task.description);
+            duedate.setAttribute("value", format(task.dueDate, "yyyy-MM-dd"));
+            priority.setAttribute("value", task.priority);
+            notes.setAttribute("value", task.notes);
+
+            modal.addSubmitButton("updatetask", "Update Task");
+            modal.openModal();
+        })
+
+        // DUE DATE
+        const taskDate = document.createElement("div");
+        taskDate.textContent = format(task.dueDate, "MMM d, yyyy");
+        taskDiv.appendChild(taskDate)
+    
+        // TRASH
+        const trash = document.createElement("img");
+        trash.src = trashImg;
+        trash.classList.add("trash");
+        taskDiv.appendChild(trash);
+
+        trash.addEventListener("click", () => {
+            projects.delProjectTask(projects.getActiveProject(), task.name)
+            renderTaskList();
+        })
+
+        taskContainer.appendChild(taskDiv)
+    }) 
+}
+
+export { renderProjectList, renderTaskList }
