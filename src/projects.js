@@ -34,17 +34,12 @@ function Projects () {
     }
 
     const updateTask = (project, task, name, notes, duedate, priority, description) => {
-        for (let i = 0; i < projectList[project].length; i++) {
-            if (projectList[project][i].name === task) {
-                projectList[project][i].name = name;
-                projectList[project][i].notes = notes;
-                projectList[project][i].dueDate = duedate;
-                projectList[project][i].priority = priority;
-                projectList[project][i].description = description;
-                storeData();
-                break;
-            }
-        }
+        projectList[project][task].name = name;
+        projectList[project][task].notes = notes;
+        projectList[project][task].dueDate = duedate;
+        projectList[project][task].priority = priority;
+        projectList[project][task].description = description;
+        storeData();
     };
 
     const delProjectTask = (project, task) => {

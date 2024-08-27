@@ -82,7 +82,7 @@ function renderModal () {
         dialog.showModal();
     }
 
-    function addSubmitButton (domClass, text) {
+    function addSubmitButton (domClass, text, index) {
         const submit = document.createElement("button")
         submit.classList.add(domClass)
         submit.textContent = text;
@@ -92,7 +92,7 @@ function renderModal () {
             event.preventDefault();
             if (event.submitter.className === "updatetask") {
                 console.log(event);
-                projects.updateTask(projects.getActiveProject(), name.value, name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
+                projects.updateTask(projects.getActiveProject(), index, name.value, notes.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, description.value);
             } else {
                 projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
             }
@@ -102,23 +102,6 @@ function renderModal () {
     }
 
 return { clearModal, closeModal, addSubmitButton, openModal}
-
-}
-
-function taskController () {
-    const name = document.querySelector("#name");
-    const description = document.querySelector("#description");
-    const duedate = document.querySelector("#duedate");
-    const priority = document.querySelector("#priority");
-    const notes = document.querySelector("#notes");
-    const form = document.querySelector("form");
-
-    const modal = renderModal();
-
-     function deleteTask (taskName) {
-        projects.delProjectTask(projects.getActiveProject(), taskName)
-        renderTaskList();
-     }
 
 }
 
@@ -140,9 +123,10 @@ function renderTaskList () {
         modal.openModal();
     })
 
-    projects.getProjects()[projects.getActiveProject()].forEach((task) => {
+    projects.getProjects()[projects.getActiveProject()].forEach((task, i) => {
         const taskDiv = document.createElement("div");
         taskDiv.classList.add("task");
+        taskDiv.setAttribute("id", "t" + i)
 
         // CHECKBOX
         const checkbox = document.createElement("input");
@@ -177,7 +161,7 @@ function renderTaskList () {
             priority.setAttribute("value", task.priority);
             notes.setAttribute("value", task.notes);
 
-            modal.addSubmitButton("updatetask", "Update Task");
+            modal.addSubmitButton("updatetask", "Update Task", i);
             modal.openModal();
         })
 
