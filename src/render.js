@@ -53,8 +53,44 @@ function renderProjectList () {
     addProjectBtn();
 }
 
+function renderModal () {
+    const dialog = document.querySelector("dialog");
+    const form = document.querySelector("form");
+    const closeTaskBtn = document.querySelector("#close");
+
+    function clearModal () {
+        form.reset();
+
+        const submit = document.querySelector("form > button");
+        console.log(submit)
+        form.removeChild(submit);
+    }
+
+    function closeModal () {
+        dialog.close();
+    }
+
+    function openModal () {
+        closeTaskBtn.addEventListener("click", () => {
+            closeModal();
+        })
+
+        dialog.showModal();
+    }
+
+    function addSubmitButton (domClass, text) {
+        const submit = document.createElement("button")
+        submit.classList.add(domClass)
+        submit.textContent = text;
+        form.appendChild(submit)
+    }
+
+return { clearModal, closeModal, addSubmitButton, openModal}
+
+}
+
 function taskController () {
-    const dialog = document.querySelector("dialog")
+    //const dialog = document.querySelector("dialog")
     const addTaskBtn = document.querySelector(".addtask");
     const closeTaskBtn = document.querySelector("#close");
     const name = document.querySelector("#name");
@@ -63,33 +99,44 @@ function taskController () {
     const priority = document.querySelector("#priority");
     const notes = document.querySelector("#notes");
     const form = document.querySelector("form");
-    const submit = document.querySelector("button#submit")
 
-    function clearForm () {
-        name.setAttribute("value", "");
-        description.setAttribute("value", "");
-        duedate.setAttribute("value", "");
-        priority.setAttribute("value", "");
-        notes.setAttribute("value", "");
-    }
+    const modal = renderModal();
+
+    // function clearModal () {
+    //     form.reset();
+
+    //     const submit = document.querySelector("form > button");
+    //     console.log(submit)
+    //     form.removeChild(submit);
+    // }
+
+    // function closeTaskModal () {
+    //     dialog.close();
+    // }
+
+    // function addSubmitButton (domClass, text) {
+    //     const submit = document.createElement("button")
+    //     submit.classList.add(domClass)
+    //     submit.textContent = text;
+    //     form.appendChild(submit)
+    // }
 
     function openTaskModal () {
         addTaskBtn.addEventListener("click", () => {
-            clearForm();
-            submit.classList.add("submittask")
-            submit.textContent = "Add Task"
-            dialog.showModal();
+            modal.clearModal();
+            modal.addSubmitButton("submitTask", "Add Task");
+            modal.openModal();
+            // clearModal();
+            // addSubmitButton("submitTask", "Add Task");
+            // dialog.showModal();
         })
     };
 
-    function closeTaskModal () {
-        closeTaskBtn.addEventListener("click", () => {
-             dialog.close();
-         })
-     };
+    // closeTaskBtn.addEventListener("click", () => {
+    //     closeTaskModal();
+    // })
 
      function submitTaskModal () {
-
         form.addEventListener("submit", (event) => {
             event.preventDefault();
             if (event.submitter.className === "updatetask") {
@@ -98,7 +145,7 @@ function taskController () {
             } else {
                 projects.addProjectTask(projects.getActiveProject(), addTask(name.value, description.value, parse(duedate.value, "yyyy-MM-dd", new Date()), priority.value, notes.value));
             }
-            dialog.close();
+            modal.closeModal()
             renderTaskList();
         });
      }
@@ -153,16 +200,14 @@ function taskController () {
                 deleteTask(task.name)
             })
 
-
             taskName.addEventListener("click", () => {
-                clearForm();
+                clearModal();
                 name.setAttribute("value", task.name);
                 description.setAttribute("value", task.description);
                 duedate.setAttribute("value", format(task.dueDate, "yyyy-MM-dd"));
                 priority.setAttribute("value", task.priority);
                 notes.setAttribute("value", task.notes);
-                submit.classList.add("updatetask")
-                submit.textContent = "Update Task";
+                addSubmitButton("updateTask", "Update Task")
                 dialog.showModal();
             })
 
@@ -170,12 +215,11 @@ function taskController () {
         }) 
     }
 
-     return { openTaskModal, closeTaskModal, submitTaskModal, renderTaskList }
+     return { openTaskModal, submitTaskModal, renderTaskList }
 }
 
 const modal = taskController();
 modal.openTaskModal();
-modal.closeTaskModal();
 modal.submitTaskModal();
 
 export { renderProjectList, taskController }
