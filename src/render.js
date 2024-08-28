@@ -40,18 +40,20 @@ function renderProjectList () {
         const newProject = document.querySelector("input#project")
     
         addProjForm.addEventListener("submit", () => {
-            if (newProject.value === null) {
+            console.log(newProject.value);
+            if (newProject.value === "") {
                 return
             } else {
             projects.addProject(newProject.value);
             projects.setActiveProject(newProject.value);
-            createProjList();
             }
         })
     }
 
-    createProjList();
-    addProjectBtn();
+    // createProjList();
+    // addProjectBtn();
+
+    return { createProjList, addProjectBtn }
 }
 
 function renderModal () {

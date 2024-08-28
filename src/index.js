@@ -7,42 +7,14 @@ import {parse, format} from "date-fns"
 if (!localStorage.getItem("projectList")) {
     populateStorage();
 
-    const addTaskBtn = document.querySelector(".addtask");
-    const modal = renderModal();
-
-    const form = document.querySelector("form.modal");
-
-    addTaskBtn.addEventListener("click", () => {
-        modal.clearModal();
-        modal.addSubmitButton("submittask", "Add Task");
-        modal.openModal();
-    })
-
-    form.addEventListener("submit", submitBtn)
-
   } else {
-    renderProjectList();
-    renderTaskList();
-
-    const addTaskBtn = document.querySelector(".addtask");
-    const modal = renderModal();
-
-    const form = document.querySelector("form.modal");
-
-    addTaskBtn.addEventListener("click", () => {
-        modal.clearModal();
-        modal.addSubmitButton("submittask", "Add Task");
-        modal.openModal();
-    })
-
-    form.addEventListener("submit", submitBtn)
+    runApp()
   }
 
   function populateStorage() {
     localStorage.setItem('projectList', '{"My List" : []}')
     localStorage.setItem('activeProject', "My List")
-    renderProjectList();
-    renderTaskList()
+    runApp()
   }
 
   function submitBtn (event) {
@@ -65,3 +37,23 @@ if (!localStorage.getItem("projectList")) {
     renderTaskList();
   }
 
+
+  function runApp () {
+    const addTaskBtn = document.querySelector(".addtask");
+    const modal = renderModal();
+  
+    const form = document.querySelector("form.modal");
+  
+    addTaskBtn.addEventListener("click", () => {
+        modal.clearModal();
+        modal.addSubmitButton("submittask", "Add Task");
+        modal.openModal();
+    })
+  
+    form.addEventListener("submit", submitBtn)
+
+    const render = renderProjectList()
+
+    render.createProjList();
+    render.addProjectBtn();
+  }
