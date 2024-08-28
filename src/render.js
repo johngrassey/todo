@@ -36,13 +36,17 @@ function renderProjectList () {
     }
 
     function addProjectBtn () {
-        const addProjBtn = document.querySelector(".addproject")
+        const addProjForm = document.querySelector("form.newproject")
+        const newProject = document.querySelector("input#project")
     
-        addProjBtn.addEventListener("click", () => {
-            const newProj = prompt("Next Project");
-            projects.addProject(newProj);
-            projects.setActiveProject(newProj);
+        addProjForm.addEventListener("submit", () => {
+            if (newProject.value === null) {
+                return
+            } else {
+            projects.addProject(newProject.value);
+            projects.setActiveProject(newProject.value);
             createProjList();
+            }
         })
     }
 
@@ -52,7 +56,7 @@ function renderProjectList () {
 
 function renderModal () {
     const dialog = document.querySelector("dialog");
-    const form = document.querySelector("form");
+    const form = document.querySelector("form.modal");
     const closeTaskBtn = document.querySelector("#close");
 
     function clearModal () {
@@ -92,7 +96,7 @@ function renderTaskList () {
     const name = document.querySelector("#name");
     const description = document.querySelector("#description");
     const duedate = document.querySelector("#duedate");
-    const priority = document.querySelector("#priority");
+    const priority = document.querySelectorAll('input[name="priority"]');
     const notes = document.querySelector("#notes");
     const taskContainer = document.querySelector(".tasks");
     const modal = renderModal();
@@ -142,7 +146,13 @@ function renderTaskList () {
             name.setAttribute("value", task.name);
             description.setAttribute("value", task.description);
             duedate.setAttribute("value", format(task.dueDate, "yyyy-MM-dd"));
-            priority.setAttribute("value", task.priority);
+            //priority.setAttribute("value", task.priority);
+            for (const nodes of priority) {
+                if (nodes.value === task.priority) {
+                    nodes.checked = true;
+                    break;
+                }
+            }
             notes.setAttribute("value", task.notes);
 
             modal.addSubmitButton("updatetask", "Update Task", i);

@@ -10,7 +10,7 @@ if (!localStorage.getItem("projectList")) {
     const addTaskBtn = document.querySelector(".addtask");
     const modal = renderModal();
 
-    const form = document.querySelector("form");
+    const form = document.querySelector("form.modal");
 
     addTaskBtn.addEventListener("click", () => {
         modal.clearModal();
@@ -27,7 +27,7 @@ if (!localStorage.getItem("projectList")) {
     const addTaskBtn = document.querySelector(".addtask");
     const modal = renderModal();
 
-    const form = document.querySelector("form");
+    const form = document.querySelector("form.modal");
 
     addTaskBtn.addEventListener("click", () => {
         modal.clearModal();
@@ -51,7 +51,7 @@ if (!localStorage.getItem("projectList")) {
     const name = document.querySelector("#name");
     const description = document.querySelector("#description");
     const duedate = document.querySelector("#duedate");
-    const priority = document.querySelector("#priority");
+    const priority = document.querySelector('input[name="priority"]:checked');
     const notes = document.querySelector("#notes");
     const modal = renderModal();
 

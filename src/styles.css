@@ -82,6 +82,38 @@ li {
   font-size: 1.2rem;
 }
 
+.projform {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+}
+
+.projform input {
+  padding: 10px 10px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  width: auto;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  height: 48px;
+  border-style: none;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.projform button {
+  width: 48px;
+  margin-top: 10px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  height: 48px;
+  border-style: none;
+  border-radius: 8px;
+  background-color: #D6F299;
+}
+
 /*
 TASKS
 */
@@ -96,7 +128,7 @@ TASKS
   border-radius: 8px
 }
 
-.addtask, .addproject {
+.addtask {
   width: 100%;
   margin-top: 10px;
   cursor: pointer;
@@ -184,7 +216,7 @@ button#close {
   cursor: pointer;
 }
 
-form {
+form.modal {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -220,4 +252,30 @@ form button.submittask, form button.updatetask {
   border-style: none;
   border-radius: 8px;
   background-color: #8596A6;
+}
+
+/* RADIO */
+
+.radio {
+  border: none;
+  padding: 0px;
+}
+
+.radio legend {
+  margin-bottom: 15px;
+}
+
+.radio label {
+  display: block;
+  font-size: 14px;
+  padding: 0 20px 0 10px;
+}
+
+.radio input[type='radio'] {
+  margin-top: 2px;
+}
+  
+.radio label,
+.radio input[type='radio'] {
+  float: left;
 }

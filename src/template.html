@@ -13,14 +13,19 @@
     <div id="sidebar">
         <h2>Projects</h2>
         <ul class="projects"></ul>
-        <button class="addproject">+ Add Project</button>
+        <form  class="newproject">
+            <div class="projform">
+                <input type="text" name="project" id="project" placeholder="Project">
+                <button class="addproject">+</button>
+            </div>
+        </form>
     </div>
     <div id="main">
         <div class="tasklist">
             <h2>Tasks</h2>
             <div class="tasks"></div>
-            <button class="addtask">+ Add Task</button>
-        </div>
+                <button class="addtask" type="submit">+ Add Task</button>
+            </div>
     </div>
 
     <dialog>
@@ -28,7 +33,7 @@
             <h3>Add Task</h3>
             <button id="close">X</button>
         </div> 
-        <form>
+        <form class="modal">
             <div class="formrow">
                 <label for="name">Task</label>
                 <input type="text" name="name" id="name" autofocus required>
@@ -42,9 +47,25 @@
                 <input type="date" name="duedate" id="duedate" required>
             </div>
             <div class="formrow">
-                <label for="priority">Priority</label>
-                <input type="text" name="priority" id="priority">
+                <fieldset class="radio">
+                    <legend>Priority</legend>
+                    <div>
+                      <input type="radio" id="high" name="priority" value="high" />
+                      <label for="high">High</label>
+                    </div>
+                  
+                    <div>
+                      <input type="radio" id="medium" name="priority" value="medium" />
+                      <label for="medium">Medium</label>
+                    </div>
+                    <div>
+                      <input type="radio" id="low" name="priority" value="low" />
+                      <label for="low">Low</label>
+                    </div>
+                  </fieldset>
             </div>
+
+
             <div class="formrow">
                 <label for="notes">Notes</label>
                 <input type="text" name="notes" id="notes">
