@@ -32,15 +32,9 @@ MAIN
 body {
     display: flex;
     background-color: #f5f5f5;
-}
-
-#sidebar {
-    background-color: white;
-    margin: 10px;
-    border-style: none;
-    border-radius: 10px;
-    flex: 1;
-    height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 #main {
@@ -48,6 +42,45 @@ body {
     height: 100vh;
 }
 
+
+/*
+SIDEBAR
+*/
+
+h2 {
+  margin-bottom: 20px;
+}
+
+#sidebar {
+  background-color: #8596A6;
+  margin: 10px;
+  border-style: none;
+  border-radius: 10px;
+  flex: 1;
+  height: 100vh;
+  padding: 30px 20px;
+}
+
+ul {
+  padding: 0px;
+}
+
+li {
+  list-style-type: none;
+  padding: 10px 10px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.activeproject {
+  background-color: #4D6473;
+  font-weight: 700;
+}
+
+.projects {
+  font-size: 1.2rem;
+}
 
 /*
 TASKS
@@ -63,25 +96,41 @@ TASKS
   border-radius: 8px
 }
 
-.addtask {
+.addtask, .addproject {
   width: 100%;
   margin-top: 10px;
   cursor: pointer;
   text-align: center;
+  font-weight: 700;
+  font-size: 1.2rem;
   height: 48px;
   border-style: none;
   border-radius: 8px;
-  background-color: #cdcdcd;
+  background-color: #D6F299;
 }
 
 .tasklist {
-  padding: 50px;
+  padding: 30px 50px;
+}
+
+.taskcontent {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
 }
 
 .tasks {
   display: flex;
   flex-direction: column;
   gap: 10px
+}
+
+.taskname {
+  cursor: pointer;
+  max-width: 600px;
+  min-width: 150px;
+  flex: 1 1 auto;
+
 }
 
 .tasklist h2 {
@@ -93,5 +142,82 @@ TASKS
 }
 
 .trash {
-  height: 1rem;
+  height: 1.2rem;
+  margin-left: 30px;
+}
+
+.checkbox {
+  margin-right: 30px;
+}
+
+/*
+FORM
+*/
+
+dialog {
+  margin: auto;
+  padding: 0px;
+  border-style: none;
+  border-radius: 10px;
+  min-width: 300px;
+  width: 50%;
+  max-width: 500px;
+}
+
+.dialoghead {
+  display: flex;
+  justify-content: space-between;
+  background-color: #8596A6;
+  padding: 10px 20px;
+}
+
+h3 {
+  padding: 10px;
+  text-align: center;
+}
+
+button#close {
+  border-style: none;
+  background-color: #8596A6;
+  padding: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 50px;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+.formrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.formrow input[type='text'], .formrow input[type='date'] {
+  background-color: #FFFFFF;
+  border: 1px solid #D6D9DC;
+  border-radius: 3px;
+  width: 100%;
+  padding: 7px;
+  font-size: 14px;
+}
+
+form button.submittask, form button.updatetask {
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  height: 48px;
+  border-style: none;
+  border-radius: 8px;
+  background-color: #8596A6;
 }

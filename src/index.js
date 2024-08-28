@@ -14,7 +14,7 @@ if (!localStorage.getItem("projectList")) {
 
     addTaskBtn.addEventListener("click", () => {
         modal.clearModal();
-        modal.addSubmitButton("submitTask", "Add Task");
+        modal.addSubmitButton("submittask", "Add Task");
         modal.openModal();
     })
 
@@ -31,7 +31,7 @@ if (!localStorage.getItem("projectList")) {
 
     addTaskBtn.addEventListener("click", () => {
         modal.clearModal();
-        modal.addSubmitButton("submitTask", "Add Task");
+        modal.addSubmitButton("submittask", "Add Task");
         modal.openModal();
     })
 

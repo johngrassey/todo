@@ -1,5 +1,4 @@
 import { Projects } from "./projects";
-import { addTask } from "./tasks";
 import trashImg from "./trash-can.svg"
 import {parse, format} from "date-fns"
 
@@ -24,7 +23,7 @@ function renderProjectList () {
             projLI.textContent = key;
 
             if (key === projects.getActiveProject()) {
-                projLI.style.color = "blue";
+                projLI.classList.add("activeproject");
             }
 
             sidebar.appendChild(projLI);
@@ -75,6 +74,8 @@ function renderModal () {
     }
 
     function addSubmitButton (domClass, text, index) {
+        const modalHeader = document.querySelector("h3");
+        modalHeader.textContent = text;
         const submit = document.createElement("button")
         submit.classList.add(domClass),
         submit.setAttribute("id", "b" + index)
@@ -103,28 +104,36 @@ function renderTaskList () {
         taskDiv.classList.add("task");
         taskDiv.setAttribute("id", "t" + i)
 
+        const taskContent = document.createElement("div");
+        taskContent.classList.add("taskcontent");
+
         // CHECKBOX
         const checkbox = document.createElement("input");
+        checkbox.classList.add("checkbox");
         checkbox.setAttribute("type", "checkbox");
         if (task.done) {
             taskName.classList.add("done");
             checkbox.checked = true;
         }
-        taskDiv.appendChild(checkbox)
+
+        taskDiv.appendChild(checkbox);
 
         checkbox.addEventListener("click", () => {
             projects.completeTask(projects.getActiveProject(), task.name)
             if (task.done) {
                 taskName.classList.add("done");
+                taskDate.classList.add("done");
             } else {
                 taskName.classList.remove("done");
+                taskDate.classList.remove("done");
             }
         })
 
         // TASK NAME
         const taskName = document.createElement("div");
         taskName.textContent = task.name;
-        taskDiv.appendChild(taskName);
+        taskName.classList.add("taskname");
+        taskContent.appendChild(taskName);
 
         taskName.addEventListener("click", () => {
 
@@ -143,12 +152,15 @@ function renderTaskList () {
         // DUE DATE
         const taskDate = document.createElement("div");
         taskDate.textContent = format(task.dueDate, "MMM d, yyyy");
-        taskDiv.appendChild(taskDate)
+        taskContent.appendChild(taskDate)
+
     
         // TRASH
         const trash = document.createElement("img");
         trash.src = trashImg;
         trash.classList.add("trash");
+
+        taskDiv.appendChild(taskContent);
         taskDiv.appendChild(trash);
 
         trash.addEventListener("click", () => {
@@ -156,7 +168,8 @@ function renderTaskList () {
             renderTaskList();
         })
 
-        taskContainer.appendChild(taskDiv)
+
+        taskContainer.appendChild(taskDiv);
     }) 
 }
 
