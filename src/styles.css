@@ -2,46 +2,62 @@
 HTML RESET
 */
 
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
-  * {
-    margin: 0;
-  }
-  body {
-    -webkit-font-smoothing: antialiased;
-  }
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
-  input, button, textarea, select {
-    font: inherit;
-  }
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
-  #root, #__next {
-    isolation: isolate;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+#root,
+#__next {
+  isolation: isolate;
+}
 
 /*
 MAIN
 */
 
 body {
-    display: flex;
-    background-color: #f5f5f5;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
+  display: flex;
+  background-color: #f5f5f5;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 #main {
-    flex: 4;
-    height: 100vh;
+  flex: 4;
+  height: 100vh;
+  margin: 10px;
 }
-
 
 /*
 SIDEBAR
@@ -52,7 +68,7 @@ h2 {
 }
 
 #sidebar {
-  background-color: #8596A6;
+  background-color: #8596a6;
   margin: 10px;
   border-style: none;
   border-radius: 10px;
@@ -74,7 +90,7 @@ li {
 }
 
 .activeproject {
-  background-color: #4D6473;
+  background-color: #4d6473;
   font-weight: 700;
 }
 
@@ -111,7 +127,7 @@ li {
   height: 48px;
   border-style: none;
   border-radius: 8px;
-  background-color: #D6F299;
+  background-color: #d6f299;
 }
 
 /*
@@ -125,7 +141,7 @@ TASKS
   background-color: white;
   height: 48px;
   padding: 0px 30px;
-  border-radius: 8px
+  border-radius: 8px;
 }
 
 .addtask {
@@ -138,7 +154,7 @@ TASKS
   height: 48px;
   border-style: none;
   border-radius: 8px;
-  background-color: #D6F299;
+  background-color: #d6f299;
 }
 
 .tasklist {
@@ -154,7 +170,7 @@ TASKS
 .tasks {
   display: flex;
   flex-direction: column;
-  gap: 10px
+  gap: 10px;
 }
 
 .taskname {
@@ -162,7 +178,6 @@ TASKS
   max-width: 600px;
   min-width: 150px;
   flex: 1 1 auto;
-
 }
 
 .tasklist h2 {
@@ -199,7 +214,7 @@ dialog {
 .dialoghead {
   display: flex;
   justify-content: space-between;
-  background-color: #8596A6;
+  background-color: #8596a6;
   padding: 10px 20px;
 }
 
@@ -210,7 +225,7 @@ h3 {
 
 button#close {
   border-style: none;
-  background-color: #8596A6;
+  background-color: #8596a6;
   padding: 10px;
   font-weight: 700;
   cursor: pointer;
@@ -233,16 +248,18 @@ label {
   justify-content: space-between;
 }
 
-.formrow input[type='text'], .formrow input[type='date'] {
-  background-color: #FFFFFF;
-  border: 1px solid #D6D9DC;
+.formrow input[type="text"],
+.formrow input[type="date"] {
+  background-color: #ffffff;
+  border: 1px solid #d6d9dc;
   border-radius: 3px;
   width: 100%;
   padding: 7px;
   font-size: 14px;
 }
 
-form button.submittask, form button.updatetask {
+form button.submittask,
+form button.updatetask {
   width: 100%;
   cursor: pointer;
   text-align: center;
@@ -251,7 +268,7 @@ form button.submittask, form button.updatetask {
   height: 48px;
   border-style: none;
   border-radius: 8px;
-  background-color: #8596A6;
+  background-color: #8596a6;
 }
 
 /* RADIO */
@@ -271,11 +288,11 @@ form button.submittask, form button.updatetask {
   padding: 0 20px 0 10px;
 }
 
-.radio input[type='radio'] {
+.radio input[type="radio"] {
   margin-top: 2px;
 }
-  
+
 .radio label,
-.radio input[type='radio'] {
+.radio input[type="radio"] {
   float: left;
 }

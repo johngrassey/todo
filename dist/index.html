@@ -1,77 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Done</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-<script defer src="main.js"></script></head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="main.js"></script>
+  </head>
+  <body>
     <div id="sidebar">
-        <h2>Projects</h2>
-        <ul class="projects"></ul>
-        <form  class="newproject">
-            <div class="projform">
-                <input type="text" name="project" id="project" placeholder="Project">
-                <button class="addproject">+</button>
-            </div>
-        </form>
+      <h2>Projects</h2>
+      <ul class="projects"></ul>
+      <form class="newproject">
+        <div class="projform">
+          <input
+            type="text"
+            name="project"
+            id="project"
+            placeholder="Project"
+          />
+          <button class="addproject">+</button>
+        </div>
+      </form>
     </div>
     <div id="main">
-        <div class="tasklist">
-            <h2>Tasks</h2>
-            <div class="tasks"></div>
-                <button class="addtask" type="submit">+ Add Task</button>
-            </div>
+      <div class="tasklist">
+        <h2>Tasks</h2>
+        <div class="tasks"></div>
+        <button class="addtask" type="submit">+ Add Task</button>
+      </div>
     </div>
 
     <dialog>
-        <div class="dialoghead">
-            <h3>Add Task</h3>
-            <button id="close">X</button>
-        </div> 
-        <form class="modal">
-            <div class="formrow">
-                <label for="name">Task</label>
-                <input type="text" name="name" id="name" autofocus required>
-            </div>
-            <div class="formrow">
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description" required>
-            </div>
-            <div class="formrow">
-                <label for="duedate">Due Date</label>
-                <input type="date" name="duedate" id="duedate" required>
-            </div>
-            <div class="formrow">
-                <fieldset class="radio">
-                    <legend>Priority</legend>
-                    <div>
-                      <input type="radio" id="high" name="priority" value="high" />
-                      <label for="high">High</label>
-                    </div>
-                  
-                    <div>
-                      <input type="radio" id="medium" name="priority" value="medium" />
-                      <label for="medium">Medium</label>
-                    </div>
-                    <div>
-                      <input type="radio" id="low" name="priority" value="low" />
-                      <label for="low">Low</label>
-                    </div>
-                  </fieldset>
+      <div class="dialoghead">
+        <h3>Add Task</h3>
+        <button id="close">X</button>
+      </div>
+      <form class="modal">
+        <div class="formrow">
+          <label for="name">Task</label>
+          <input type="text" name="name" id="name" autofocus required />
+        </div>
+        <div class="formrow">
+          <label for="description">Description</label>
+          <input type="text" name="description" id="description" required />
+        </div>
+        <div class="formrow">
+          <label for="duedate">Due Date</label>
+          <input type="date" name="duedate" id="duedate" required />
+        </div>
+        <div class="formrow">
+          <fieldset class="radio">
+            <legend>Priority</legend>
+            <div>
+              <input type="radio" id="high" name="priority" value="high" />
+              <label for="high">High</label>
             </div>
 
-
-            <div class="formrow">
-                <label for="notes">Notes</label>
-                <input type="text" name="notes" id="notes">
+            <div>
+              <input type="radio" id="medium" name="priority" value="medium" />
+              <label for="medium">Medium</label>
             </div>
-            <button type="submit" id="submit"></button>
-        </form>
+            <div>
+              <input type="radio" id="low" name="priority" value="low" />
+              <label for="low">Low</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="formrow">
+          <label for="notes">Notes</label>
+          <input type="text" name="notes" id="notes" />
+        </div>
+        <button type="submit" id="submit"></button>
+      </form>
     </dialog>
-</body>
+  </body>
 </html>
